@@ -27,10 +27,9 @@ enable_vault()
 unseal_vault()
 {
     for i in $(seq 3)
-        do 
-            vault operator unseal $(echo $resp | jq -r .unseal_keys_b64[$i])
-        done
-    fi
+    do 
+        vault operator unseal $(echo $resp | jq -r .unseal_keys_b64[$i])
+    done
 }
 
 active_vault()
@@ -51,4 +50,4 @@ active_vault()
 update_system
 install_vault
 enable_vault
-active_vault
+#active_vault
