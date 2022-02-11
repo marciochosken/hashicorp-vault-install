@@ -36,10 +36,10 @@ active_vault()
 {
     if [ ! -z "$VAULT_INIT_ARGS" ]; then
         resp=$(vault operator init $VAULT_INIT_ARGS -format=json)
+        echo $resp > ~/.vault-init-output.json
         unseal_vault
     else
         resp=$(vault operator init -format=json)
-        echo $resp > ~/.vault-init-output.json
         unseal_vault
         vault login $(echo $resp | jq -r .root_token)
         resp=$(vault token create -period=6h -format=json)
@@ -50,4 +50,4 @@ active_vault()
 update_system
 install_vault
 enable_vault
-#active_vault
+active_vault
